@@ -5,5 +5,12 @@ services:
     ports:
       - 9080:80
     volumes:
-      - ./nginx/www:/usr/share/nginx/html
-      - ./nginx/conf:/etc/nginx/conf
+      - ./nginx/www:/var/www/html:ro
+      - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+    links:
+    - php-fpm
+  php-fpm:
+    image: php:8-fpm
+    volumes: 
+      - ./nginx/www:/var/www/html
+
